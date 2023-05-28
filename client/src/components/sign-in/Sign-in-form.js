@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import TextInput from "../input/Input";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
+import { useDispatch, useSelector } from "react-redux";
+import { authActionCreator } from "../../store/actions";
 
 export default function SignInForm() {
+  const user = useSelector(({ auth }) => auth.user);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = useCallback((e) => {
+    dispatch(authActionCreator.signIn({ email, password }))
     e.preventDefault();
-  }
+  }, [dispatch, email, password]);
+  
+  if (user) return <Navigate to={AppRoute.SIGNUP} />
 
   return (
     <>

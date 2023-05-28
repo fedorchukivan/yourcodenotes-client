@@ -6,4 +6,12 @@ export default class AuthService {
       role: 'admin'
     }
   }
+
+  signIn(payload) {
+    return {
+      fullName: 'user',
+      email: payload.email,
+      role: 'admin'
+    }
+  }
 }

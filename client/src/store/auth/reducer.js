@@ -17,9 +17,8 @@ const reducer = createReducer(initialState, (builder) => {
     window.sessionStorage.setItem('token', '');
   });
   builder.addCase(signIn.fulfilled, (state, { payload }) => {
-    const { token, user } = payload;
+    const user = payload;
 
-    window.sessionStorage.setItem('token', token);
     state.user = user;
   });
   builder.addCase(signUp.fulfilled, (state, { payload }) => {
