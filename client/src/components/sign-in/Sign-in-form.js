@@ -18,7 +18,7 @@ export default function SignInForm() {
     e.preventDefault();
   }, [dispatch, email, password]);
   
-  if (user) return <Navigate to={AppRoute.SIGNUP} />
+  if (user) return <Navigate to={AppRoute.ROOT} />
 
   return (
     <>
