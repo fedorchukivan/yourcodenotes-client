@@ -1,0 +1,16 @@
+.card-description {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.card-description {
+  -webkit-line-clamp: 3;
+}
+
+/* .card-title {
+  -webkit-line-clamp: 2;
+} */
