@@ -1,27 +1,26 @@
 import './records.css'
-import { Link, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import AppRoute from "../../common/enums/app-route"
 import RecordCard from '../record-card/Record-card'
 import { useSelector } from 'react-redux';
+import Navigation from '../navigation/Navigation';
 
 
 export default function Records() {
-  const user = useSelector(({ auth }) => auth.user);
+  const { user, cards } = useSelector(({ auth, cards }) => ({
+      user: auth.user,
+      cards: cards.cards
+    })
+  );
+
 
   if (!user) return <Navigate to={AppRoute.SIGNIN} />
 
   return (
     <>
-      <ul className="navigation-container">
-        <Link to={AppRoute.ROOT}><li className="navigation-button">My Projects</li></Link>
-        <Link to={AppRoute.ROOT}><li className="navigation-button">Shared Projects</li></Link>
-        <Link to={AppRoute.ROOT}><li className="navigation-button">Open Database</li></Link>
-      </ul>
+      <Navigation />
       <main className='records-container'>
-        <RecordCard />        
-        <RecordCard />        
-        <RecordCard />        
-        <RecordCard />        
+        { cards.map(card => <RecordCard card={card} key={card.id}/>) }
       </main>
     </>
   )

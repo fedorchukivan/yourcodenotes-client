@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { auth } from './reducers';
+import { auth, cards } from './reducers';
 import { authService } from '../services/services';
 
 const store = configureStore({
   reducer: {
-    auth
+    auth,
+    cards
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({

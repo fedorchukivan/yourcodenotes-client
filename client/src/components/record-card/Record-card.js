@@ -10,20 +10,14 @@ import { Link } from 'react-router-dom';
 import AppRoute from '../../common/enums/app-route';
 import './record-card.css'
 
-export default function RecordCard() {
-  const card = {
-    title: 'Card Title',
-    description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
-    tags: ['c#', 'backend', '.net'],
-    creator: 'Sullivan Smith'
-  }
+export default function RecordCard({ card }) {
 
   return (
   <>
     <MDBCard border='info'>
       <MDBCardBody >
         <MDBCardTitle>{card.title}</MDBCardTitle>
-        <MDBCardText className='card-description'>{card.description}</MDBCardText>
+        <MDBCardText className='card-description'>{card.problemDescription}</MDBCardText>
         <Link to={AppRoute.SIGNIN}>See more</Link>
       </MDBCardBody>
       <MDBCardFooter className='d-flex justify-content-between'>

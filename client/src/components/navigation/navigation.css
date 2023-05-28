@@ -1,0 +1,25 @@
+.navigation-container {
+  display: flex;
+  min-height: 50px;
+  background-color: var(--color-blue-400);
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: var(--font-size-300);
+}
+
+.navigation-button {
+  color: var(--color-blue-200);
+  display: inline-block;
+  min-height: 100%;
+  padding: 10px;
+  text-decoration: none;
+  transition: 0.1s color ease;
+}
+
+.navigation-button:hover {
+  color: var(--color-blue-300);
+  background-color: var(--overlay-color);
+}
