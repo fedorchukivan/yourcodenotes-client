@@ -7,6 +7,7 @@ import Footer from '../footer/Footer';
 import Sign from '../sign/Sign';
 import Records from '../records/Records';
 import Record from '../record/Record';
+import OpenDB from '../records/Open-db';
 
 export default function App() {
   const [showNavigation, setShowNavigation] = useState(true);
@@ -28,7 +29,9 @@ export default function App() {
         <Route path={AppRoute.ROOT} element={<Records />} />
         <Route path={AppRoute.SIGNIN} element={<Sign />} />
         <Route path={AppRoute.SIGNUP} element={<Sign />} />
+        <Route path={AppRoute.OPENDB} element={<OpenDB />} />
         <Route path={AppRoute.ROOT + AppRoute.RECORDID} element={<Record />} />
+        <Route path={AppRoute.OPENDB + AppRoute.RECORDID} element={<Record />} />
         <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.ROOT}/>} />
       </Routes>
       <Footer />

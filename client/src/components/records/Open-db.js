@@ -8,21 +8,21 @@ import { useEffect } from 'react';
 import { recordsActionCreator } from '../../store/actions';
 
 
-export default function Records() {
+export default function OpenDB() {
   const user = useSelector(({ auth }) => auth.user);
   const records = useSelector(({ records }) => records.records);
   
   const dispatch = useDispatch();
   
   useEffect(() => {
-    if (user) dispatch(recordsActionCreator.getUserRecords(user));
-  }, [dispatch, user]);
+    dispatch(recordsActionCreator.getPublicRecords());
+  }, [dispatch]);
   
   if (!user) return <Navigate to={AppRoute.SIGNIN} />
 
   return (
     <>
-      <Navigation showSearch={true}/>
+      <Navigation showSearch={true} />
       <main className='records-container'>
         { records.map(record => <RecordCard record={record} key={record.id}/>) }
       </main>
