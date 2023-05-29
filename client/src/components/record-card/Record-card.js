@@ -6,11 +6,11 @@ import {
   MDBCardFooter,
   MDBBadge
 } from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
-import AppRoute from '../../common/enums/app-route';
+import { Link, useLocation } from 'react-router-dom';
 import './record-card.css'
 
 export default function RecordCard({ card }) {
+  const { pathname } = useLocation();
 
   return (
   <>
@@ -18,7 +18,7 @@ export default function RecordCard({ card }) {
       <MDBCardBody >
         <MDBCardTitle>{card.title}</MDBCardTitle>
         <MDBCardText className='card-description'>{card.problemDescription}</MDBCardText>
-        <Link to={AppRoute.SIGNIN}>See more</Link>
+        <Link to={pathname + '/' + card.id}>See more</Link>
       </MDBCardBody>
       <MDBCardFooter className='d-flex justify-content-between'>
         <div>

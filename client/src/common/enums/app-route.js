@@ -5,7 +5,7 @@ const AppRoute = {
   SHARED: '/shared-projects',
   OPENDB: '/open-db',
   ROOT: '/records',
-  RECORD: '/records:id',
+  RECORDID: '/:recordId',
   ANY: '*'
 };
 

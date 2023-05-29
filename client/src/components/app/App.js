@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Footer from '../footer/Footer';
 import Sign from '../sign/Sign';
 import Records from '../records/Records';
+import Record from '../record/Record';
 
 export default function App() {
   const [showNavigation, setShowNavigation] = useState(true);
@@ -27,7 +28,8 @@ export default function App() {
         <Route path={AppRoute.ROOT} element={<Records />} />
         <Route path={AppRoute.SIGNIN} element={<Sign />} />
         <Route path={AppRoute.SIGNUP} element={<Sign />} />
-        <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.SIGNIN}/>} />
+        <Route path={AppRoute.ROOT + AppRoute.RECORDID} element={<Record />} />
+        <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.ROOT}/>} />
       </Routes>
       <Footer />
     </>

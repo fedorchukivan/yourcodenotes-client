@@ -9,10 +9,12 @@ const initialState = {
       solutionDescription: `As akdsfljnva sjbs ahe j wnm qwn  qw nmnm nqn qn rnq n rnb erw bnr qwbe rbn wqrb rbqwe bnwe b ewmf qnm bnfqfbn webf qbnf bnqw fb qwbf bnq ebf qbnw fb qf`,
       sources: [
         {
+          id: 'dasdvvwsdvsfvewwv',
           link: 'localhost:3000/',
           name: 'YourCodeNotes'
         },
         {
+          id: 'odjbtenjknvjkdvknv',
           link: 'localhost:3000/',
           name: 'First'
         }
@@ -27,6 +29,7 @@ const initialState = {
       solutionDescription: `As akdsfljnva sjbs ahe j wnm qwn  qw nmnm nqn qn rnq n rnb erw bnr qwbe rbn wqrb rbqwe bnwe b ewmf qnm bnfqfbn webf qbnf bnqw fb qwbf bnq ebf qbnw fb qf`,
       sources: [
         {
+          id: 'jwnvionqvjqnudvndvksjnv',
           link: 'https://mdbootstrap.com/docs/react/components/cards/',
           name: 'MDB Card component'
         }

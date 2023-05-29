@@ -13,7 +13,6 @@ export default function Records() {
     })
   );
 
-
   if (!user) return <Navigate to={AppRoute.SIGNIN} />
 
   return (
