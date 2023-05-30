@@ -15,16 +15,28 @@ export default function OpenDB() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(recordsActionCreator.getPublicRecords());
-  }, [dispatch]);
+    if (user) dispatch(recordsActionCreator.getPublicRecords());
+  }, [dispatch, user]);
   
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
+
+  const handleDelete = (id) => {
+    dispatch(recordsActionCreator.unpublishRecord(id));
+  }
 
   return (
     <>
       <Navigation showSearch={true} />
       <main className='records-container'>
-        { records.map(record => <RecordCard record={record} key={record.id}/>) }
+        {
+          records.map(record =>
+            <RecordCard
+              record={record}
+              key={record.id}
+              deletable={user ? user.role === 'admin' : false}
+              handleDelete={handleDelete}/>
+          )
+        }
       </main>
     </>
   )

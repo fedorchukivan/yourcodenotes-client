@@ -22,11 +22,15 @@ export default function Records() {
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
   else if (user.role === 'admin') return <Navigate to={AppRoute.OPEN_DB} />
 
+  const handleDelete = (id) => {
+    dispatch(recordsActionCreator.removeRecord(id));
+  }
+
   return (
     <>
       <Navigation showSearch={true}/>
       <main className='records-container'>
-        { records.map(record => <RecordCard record={record} key={record.id}/>) }
+        { records.map(record => <RecordCard record={record} key={record.id} deletable={true} handleDelete={handleDelete}/>) }
       </main>
       <Link to={AppRoute.ROOT + AppRoute.ADD_RECORD}>
         <MDBBtn floating className='add-btn'>

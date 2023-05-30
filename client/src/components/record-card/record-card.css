@@ -11,6 +11,10 @@
   -webkit-line-clamp: 3;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 /* .card-title {
   -webkit-line-clamp: 2;
 } */
