@@ -18,7 +18,7 @@ export default function SignInForm() {
     e.preventDefault();
   }, [dispatch, email, password]);
   
-  if (user) return <Navigate to={AppRoute.ROOT} />
+  if (user) return <Navigate to={user.role === 'admin' ? AppRoute.OPEN_DB : AppRoute.ROOT} />
 
   return (
     <>

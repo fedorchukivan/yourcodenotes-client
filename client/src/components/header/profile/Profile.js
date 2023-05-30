@@ -18,7 +18,7 @@ export default function Profile() {
           <span className="visually-hidden">Profile</span>
           <img src={userSVG} alt="profile icon" />
           <ul className="profile-nav__list">
-            <li className="profile-nav__item profile-nav__username">{user ? user.fullName + (user.role === 'admin' ? ' (Admin)' : '') : ''}</li>
+            <li className="profile-nav__item profile-nav__username">{user ? user.username + (user.role === 'admin' ? ' (Admin)' : '') : ''}</li>
             <li className="profile-nav__item">
               <button className="profile-nav__sign-out button" onClick={handleSignOut}>Sign Out</button>
             </li>

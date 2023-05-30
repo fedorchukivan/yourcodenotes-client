@@ -26,7 +26,7 @@ export default function Record() {
   
     <main className="record-view-container">
       <MDBTypography tag='h3'>{record.title}</MDBTypography>
-      <i className='text-secondary'>By: {record.creator}</i>
+      <i className='text-secondary'>By: {record.creator.username}</i>
       <hr/>
       <div>
         {

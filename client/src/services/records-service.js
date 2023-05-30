@@ -17,7 +17,10 @@ const records = [
       }
     ],
     tags: ['c#', 'backend', '.net'],
-    creator: 'admin@at.ua',
+    creator: {
+      email: 'test@at.ua',      
+      username: 'testerforever'
+    },
     isPublic: true,
     sectionId: null
   },
@@ -39,7 +42,10 @@ const records = [
       }
     ],
     tags: ['c#', 'backend', '.net'],
-    creator: 'admin@at.ua',
+    creator: {
+      email: 'test@at.ua',      
+      username: 'testerforever'
+    },
     isPublic: true,
     sectionId: null
   },
@@ -61,7 +67,10 @@ const records = [
       }
     ],
     tags: ['c#', 'backend', '.net'],
-    creator: 'admin@at.ua',
+    creator: {
+      email: 'test@at.ua',      
+      username: 'testerforever'
+    },
     isPublic: true,
     sectionId: null
   },
@@ -83,7 +92,10 @@ const records = [
       }
     ],
     tags: ['c#', 'backend', '.net'],
-    creator: 'admin@at.ua',
+    creator: {
+      email: 'test@at.ua',      
+      username: 'testerforever'
+    },
     isPublic: false,
     sectionId: 'section1'
   },
@@ -100,7 +112,10 @@ const records = [
       }
     ],
     tags: ['react', 'mdb', 'frontend'],
-    creator: 'Pastor Luke',
+    creator: {
+      email: 'abc@d.t',      
+      username: 'Pastor Luke'
+    },
     isPublic: true,
     sectionId: null
   }
@@ -110,11 +125,17 @@ export default class RecordsService {
 
   getUserRecords(payload) {
     return records.filter(record => 
-      record.creator === payload.email && !record.sectionId
+      record.creator.email === payload.email && !record.sectionId
     );
   }
 
   getPublicRecords() {
     return records.filter(record => record.isPublic);
+  }
+
+  addRecord(payload) {
+    payload.id = Math.random().toString();
+    records.push(payload);
+    return payload;
   }
 }

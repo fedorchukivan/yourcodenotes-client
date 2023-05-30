@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../navigation/Navigation";
 import { Navigate } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
 import './record.css';
 import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
 import { useState } from "react";
+import { recordsActionCreator } from "../../store/actions";
 
-export default function RecordCreate({ sectionId }) {
+export default function RecordCreate({ sectionId, path }) {
   const user = useSelector(({ auth }) => auth.user);
 
   const [tag, setTag] = useState('');
@@ -18,6 +19,9 @@ export default function RecordCreate({ sectionId }) {
   const [sources, setSources] = useState(() => []);
   const [tags, setTags] = useState(() => []);
   const [isPublic, setIsPublic] = useState(false);
+  const [finished, setFinished] = useState(false);
+
+  const dispatch = useDispatch();
 
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
 
@@ -51,17 +55,21 @@ export default function RecordCreate({ sectionId }) {
         title,
         problemDescription: problem,
         solutionDescription: solution,
-        creator: user.email,
+        creator: {
+          email: user.email,
+          username: user.username
+        },
         isPublic,
         tags,
         sources,
         sectionId
       }
-      console.log(r);
+      dispatch(recordsActionCreator.addRecord(r));
+      setFinished(true);
     }
   }
 
-  return (
+  return !finished ? (
   <>
     <Navigation showSearch={false} />
   
@@ -71,7 +79,7 @@ export default function RecordCreate({ sectionId }) {
           <div className="input-group-text" >Title</div>
           <input type="text" className="form-control" value={title} onChange={e => setTitle(e.target.value)} required/>
         </div>
-        <i className='text-secondary'>By: {user ? user.email : ''}</i>
+        <i className='text-secondary'>By: {user ? user.username : ''}</i>
         <hr/>
         <div>
           <div className="input-group mb-3">
@@ -134,5 +142,7 @@ export default function RecordCreate({ sectionId }) {
         </button>
       </form>
     </main>
-  </>);
+  </>)
+  :
+  <Navigate to={path} />;
 }

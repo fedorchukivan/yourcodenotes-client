@@ -20,6 +20,7 @@ export default function Records() {
   }, [dispatch, user]);
   
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
+  else if (user.role === 'admin') return <Navigate to={AppRoute.OPEN_DB} />
 
   return (
     <>

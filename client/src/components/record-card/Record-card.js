@@ -28,7 +28,7 @@ export default function RecordCard({ record }) {
             </MDBBadge>)
           }
         </div>
-        <i className='text-secondary'>By: {record.creator}</i>
+        <i className='text-secondary'>By: {record.creator.username}</i>
       </MDBCardFooter>
     </MDBCard>
   </>);

@@ -33,7 +33,7 @@ export default function App() {
         <Route path={AppRoute.OPEN_DB} element={<OpenDB />} />
         <Route path={AppRoute.ROOT + AppRoute.RECORD_ID} element={<Record />} />
         <Route path={AppRoute.OPEN_DB + AppRoute.RECORD_ID} element={<Record />} />
-        <Route path={AppRoute.ROOT + AppRoute.ADD_RECORD} element={<RecordCreate sectionId={null}/>} />
+        <Route path={AppRoute.ROOT + AppRoute.ADD_RECORD} element={<RecordCreate sectionId={null} path={AppRoute.ROOT}/>} />
         <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.ROOT}/>} />
       </Routes>
       <Footer />
