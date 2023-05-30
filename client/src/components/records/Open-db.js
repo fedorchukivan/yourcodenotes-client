@@ -18,7 +18,7 @@ export default function OpenDB() {
     dispatch(recordsActionCreator.getPublicRecords());
   }, [dispatch]);
   
-  if (!user) return <Navigate to={AppRoute.SIGNIN} />
+  if (!user) return <Navigate to={AppRoute.SIGN_IN} />
 
   return (
     <>

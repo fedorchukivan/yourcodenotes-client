@@ -7,9 +7,9 @@ const Sign = () => {
   const { pathname } = useLocation();
 
   return (
-  <main className={pathname === AppRoute.SIGNIN ? "sign-in-page" : "sign-up-page"}>
+  <main className={pathname === AppRoute.SIGN_IN ? "sign-in-page" : "sign-up-page"}>
     <h1 className="visually-hidden">YourCodeNotes</h1>
-    { pathname === AppRoute.SIGNIN ? <SignInForm /> : <SignUpForm /> }
+    { pathname === AppRoute.SIGN_IN ? <SignInForm /> : <SignUpForm /> }
   </main>);
 }
 

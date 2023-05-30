@@ -8,6 +8,7 @@ import Sign from '../sign/Sign';
 import Records from '../records/Records';
 import Record from '../record/Record';
 import OpenDB from '../records/Open-db';
+import RecordCreate from '../record/Record-create-form';
 
 export default function App() {
   const [showNavigation, setShowNavigation] = useState(true);
@@ -15,7 +16,7 @@ export default function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (pathname === AppRoute.SIGNIN || pathname === AppRoute.SIGNUP) {
+    if (pathname === AppRoute.SIGN_IN || pathname === AppRoute.SIGNUP) {
       setShowNavigation(false);
     } else {
       setShowNavigation(true);
@@ -27,11 +28,12 @@ export default function App() {
       <Header showNavigation={showNavigation}/>
       <Routes>
         <Route path={AppRoute.ROOT} element={<Records />} />
-        <Route path={AppRoute.SIGNIN} element={<Sign />} />
+        <Route path={AppRoute.SIGN_IN} element={<Sign />} />
         <Route path={AppRoute.SIGNUP} element={<Sign />} />
-        <Route path={AppRoute.OPENDB} element={<OpenDB />} />
-        <Route path={AppRoute.ROOT + AppRoute.RECORDID} element={<Record />} />
-        <Route path={AppRoute.OPENDB + AppRoute.RECORDID} element={<Record />} />
+        <Route path={AppRoute.OPEN_DB} element={<OpenDB />} />
+        <Route path={AppRoute.ROOT + AppRoute.RECORD_ID} element={<Record />} />
+        <Route path={AppRoute.OPEN_DB + AppRoute.RECORD_ID} element={<Record />} />
+        <Route path={AppRoute.ROOT + AppRoute.ADD_RECORD} element={<RecordCreate sectionId={null}/>} />
         <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.ROOT}/>} />
       </Routes>
       <Footer />

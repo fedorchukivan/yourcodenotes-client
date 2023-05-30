@@ -7,7 +7,6 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(getUserRecords.fulfilled, (state, { payload }) => {
-    console.log(payload);
     state.records = payload;
   });
   builder.addCase(getPublicRecords.fulfilled, (state, { payload }) => {

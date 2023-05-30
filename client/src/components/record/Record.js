@@ -18,7 +18,7 @@ export default function Record() {
   const user = useSelector(({ auth }) => auth.user);
   const record = useSelector((state) => cardSelector(state, recordId));
 
-  if (!user) return <Navigate to={AppRoute.SIGNIN} />
+  if (!user) return <Navigate to={AppRoute.SIGN_IN} />
 
   return (
   <>

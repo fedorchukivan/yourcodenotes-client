@@ -30,7 +30,7 @@ const SignUpForm = () => {
       </form>
       <span>
         Already have an account?
-        <Link to={AppRoute.SIGNIN} className="sign-in-form__link">Sign In</Link>
+        <Link to={AppRoute.SIGN_IN} className="sign-in-form__link">Sign In</Link>
       </span>
     </>);
 }

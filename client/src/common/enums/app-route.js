@@ -1,11 +1,12 @@
 const AppRoute = {
-  SIGNIN: '/sign-in',
+  SIGN_IN: '/sign-in',
   SIGNUP: '/sign-up',
   PROJECTS: '/projects',
   SHARED: '/shared-projects',
-  OPENDB: '/open-db',
+  OPEN_DB: '/open-db',
   ROOT: '/records',
-  RECORDID: '/:recordId',
+  RECORD_ID: '/:recordId',
+  ADD_RECORD: '/add',
   ANY: '*'
 };
 

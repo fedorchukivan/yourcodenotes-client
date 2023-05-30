@@ -10,7 +10,7 @@ export default function Navigation({ showSearch }) {
     <Link to={AppRoute.ROOT}><li className="navigation-button">Home</li></Link>
     <Link to={AppRoute.ROOT}><li className="navigation-button">My Projects</li></Link>
     <Link to={AppRoute.ROOT}><li className="navigation-button">Shared Projects</li></Link>
-    <Link to={AppRoute.OPENDB}><li className="navigation-button">Open Database</li></Link>
+    <Link to={AppRoute.OPEN_DB}><li className="navigation-button">Open Database</li></Link>
     { showSearch && 
       (<>
         <MDBInputGroup tag="form" className='d-flex w-auto p-2 ms-auto'>

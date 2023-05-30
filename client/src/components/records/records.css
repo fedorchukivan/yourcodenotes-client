@@ -5,3 +5,11 @@
   width: 100%;
   padding: 20px 100px;
 }
+
+.add-btn {
+  height: 80px;
+  width: 80px;
+  position: fixed;
+  right: 1%;
+  bottom: 10%
+}
