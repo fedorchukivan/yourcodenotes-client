@@ -3,10 +3,28 @@ import AppRoute from "../../common/enums/app-route";
 import './navigation.css'
 import { MDBBtn, MDBInputGroup } from "mdb-react-ui-kit";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
-export default function Navigation({ showSearch }) {
+export default function Navigation({ showSearch, handleTitle, handleTag }) {
   const user = useSelector(({ auth }) => auth.user);
+
+  const [title, setTitle] = useState('');
+  const [tag, setTag] = useState('');
   
+  const handleTitleSearch = (e) => {
+    e.preventDefault();
+    handleTitle(title);
+    setTitle('');
+    setTag('');
+  }
+  
+  const handleTagSearch = (e) => {
+    e.preventDefault();
+    handleTag(tag);
+    setTitle('');
+    setTag('');
+  }
+
   return (
   <ul className="navigation-container">
     { user && user.role !== 'admin' && <>
@@ -19,12 +37,12 @@ export default function Navigation({ showSearch }) {
     { showSearch && 
       (<>
         <MDBInputGroup tag="form" className='d-flex w-auto p-2 ms-auto'>
-          <input className='form-control' placeholder="Search by title..." aria-label="Search" type='Search' />
-          <MDBBtn outline onClick={(e) => { e.preventDefault(); }}>Search</MDBBtn>
+          <input className='form-control' placeholder="Search by title..." aria-label="Search" type='Search' value={title} onChange={e => setTitle(e.target.value)} />
+          <MDBBtn outline onClick={(e) => handleTitleSearch(e)}>Search</MDBBtn>
         </MDBInputGroup>
         <MDBInputGroup tag="form" className='d-flex w-auto p-2 ms-auto'>
-          <input className='form-control' placeholder="Search by tag..." aria-label="Search" type='Search' />
-          <MDBBtn outline onClick={(e) => { e.preventDefault(); }}>Search</MDBBtn>
+          <input className='form-control' placeholder="Search by tag..." aria-label="Search" type='Search' value={tag} onChange={e => setTag(e.target.value)} />
+          <MDBBtn outline onClick={(e) => handleTagSearch(e)}>Search</MDBBtn>
         </MDBInputGroup>
       </>)
     }

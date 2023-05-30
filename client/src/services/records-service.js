@@ -43,6 +43,26 @@ const records = [
     },
     isPublic: true,
     sectionId: null
+  },
+  {
+    id: 'askd2jnjnkjdsaadenwkjf',
+    title: 'How to add info card',
+    problemDescription: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+    solutionDescription: `As akdsfljnva sjbs ahe j wnm qwn  qw nmnm nqn qn rnq n rnb erw bnr qwbe rbn wqrb rbqwe bnwe b ewmf qnm bnfqfbn webf qbnf bnqw fb qwbf bnq ebf qbnw fb qf`,
+    sources: [
+      {
+        id: 'jwnvionqvjqnudvndvksjnv',
+        link: 'https://mdbootstrap.com/docs/react/components/cards/',
+        name: 'MDB Card component'
+      }
+    ],
+    tags: ['react', 'mdb', 'frontend'],
+    creator: {
+      email: 'test@at.ua',      
+      username: 'testerforever'
+    },
+    isPublic: true,
+    sectionId: null
   }
 ];
 
@@ -50,12 +70,19 @@ export default class RecordsService {
 
   getUserRecords(payload) {
     return records.filter(record => 
-      record.creator.email === payload.email && !record.sectionId
+      record.creator.email === payload.user.email &&
+      !record.sectionId &&
+      record.title.includes(payload.titleFilter) &&
+      (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
     );
   }
 
-  getPublicRecords() {
-    return records.filter(record => record.isPublic);
+  getPublicRecords(payload) {
+    return records.filter(record =>
+      record.isPublic &&
+      record.title.includes(payload.titleFilter) &&
+      (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
+    );
   }
 
   addRecord(payload) {

@@ -5,8 +5,8 @@ const getUserRecords = createAsyncThunk(ActionType.GET_USER_RECORDS, (payload, {
   extra.recordsService.getUserRecords(payload)
 );
 
-const getPublicRecords = createAsyncThunk(ActionType.GET_PUBLIC, (_args, { extra }) =>
-  extra.recordsService.getPublicRecords()
+const getPublicRecords = createAsyncThunk(ActionType.GET_PUBLIC, (payload, { extra }) =>
+  extra.recordsService.getPublicRecords(payload)
 );
 
 const addRecord = createAsyncThunk(ActionType.ADD_RECORD, (payload, { extra }) =>
