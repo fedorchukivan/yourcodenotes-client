@@ -15,6 +15,7 @@ import ProjectRecords from '../records/Project-records';
 import SharedProjects from '../projects/Shared-projects';
 import SharedProject from '../project/Shared-project';
 import SharedProjectRecords from '../records/Shared-records';
+import RecordEdit from '../record/Record-edit-form';
 
 export default function App() {
   const [showNavigation, setShowNavigation] = useState(true);
@@ -50,6 +51,9 @@ export default function App() {
         <Route path={AppRoute.ROOT + AppRoute.ADD_RECORD} element={<RecordCreate path={AppRoute.ROOT}/>} />
         <Route path={AppRoute.SECTION + AppRoute.ADD_RECORD} element={<RecordCreate path={AppRoute.PROJECTS}/>} />
         <Route path={AppRoute.SHARED_SECTION + AppRoute.ADD_RECORD} element={<RecordCreate path={AppRoute.SHARED}/>} />
+        <Route path={AppRoute.ROOT + AppRoute.UPDATE_RECORD + AppRoute.RECORD_ID} element={<RecordEdit path={AppRoute.ROOT}/>} />
+        <Route path={AppRoute.SECTION + AppRoute.UPDATE_RECORD + AppRoute.RECORD_ID} element={<RecordEdit path={AppRoute.PROJECTS}/>} />
+        <Route path={AppRoute.SHARED_SECTION + AppRoute.UPDATE_RECORD + AppRoute.RECORD_ID} element={<RecordEdit path={AppRoute.SHARED}/>} />
         <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.ROOT}/>} />
       </Routes>
       <Footer />

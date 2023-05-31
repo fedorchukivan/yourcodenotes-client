@@ -62,7 +62,9 @@ export default function OpenDB() {
               record={record}
               key={record.id}
               deletable={user ? user.role === 'admin' : false}
-              handleDelete={handleDelete}/>
+              handleDelete={handleDelete}
+              editable={false}
+              editLink={''}/>
           )
         }
       </main>

@@ -58,7 +58,17 @@ export default function Records() {
               <button type="button" className="btn btn-outline-danger" data-mdb-ripple-color="dark" onClick={handleClear}>clear</button>
             </div>
         }
-        { records.map(record => <RecordCard record={record} key={record.id} deletable={true} handleDelete={handleDelete}/>) }
+        {
+          records.map(record =>
+            <RecordCard
+              record={record}
+              key={record.id}
+              deletable={true}
+              handleDelete={handleDelete}
+              editable={true}
+              editLink={AppRoute.ROOT + AppRoute.UPDATE_RECORD + '/' + record.id}
+            />)
+        }
       </main>
       <Link to={AppRoute.ROOT + AppRoute.ADD_RECORD}>
         <MDBBtn floating className='add-btn'>

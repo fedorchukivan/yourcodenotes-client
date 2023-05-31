@@ -9,14 +9,21 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import './record-card.css'
 
-export default function RecordCard({ record, deletable, handleDelete }) {
+export default function RecordCard({ record, deletable, handleDelete, editable, editLink }) {
   const { pathname } = useLocation();
 
   return (
   <>
     <MDBCard border='info'>
       <MDBCardBody >
-        <MDBCardTitle>{record.title}{ deletable && <i className="fas fa-square-xmark float-end text-danger clickable" onClick={() => handleDelete(record.id)}></i> }</MDBCardTitle>
+        <MDBCardTitle>{record.title}
+          { deletable && <i className="fas fa-square-xmark float-end text-danger clickable" onClick={() => handleDelete(record.id)}></i> }
+          { editable &&
+            <Link to={editLink}>
+              <i className="fas fa-pencil float-end me-1"></i>
+            </Link>
+          }
+        </MDBCardTitle>
         <MDBCardText className='card-description'>{record.problemDescription}</MDBCardText>
         <Link to={pathname + '/' + record.id}>See more</Link>
       </MDBCardBody>

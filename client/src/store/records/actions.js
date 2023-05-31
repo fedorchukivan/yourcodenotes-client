@@ -17,6 +17,10 @@ const addRecord = createAsyncThunk(ActionType.ADD_RECORD, (payload, { extra }) =
   extra.recordsService.addRecord(payload)
 );
 
+const updateRecord = createAsyncThunk(ActionType.UPDATE_RECORD, (payload, { extra }) =>
+  extra.recordsService.updateRecord(payload)
+);
+
 const removeRecord = createAsyncThunk(ActionType.REMOVE, (payload, { extra }) => 
   extra.recordsService.removeRecord(payload)
 );
@@ -25,4 +29,12 @@ const unpublishRecord = createAsyncThunk(ActionType.UNPUBLISH, (payload, { extra
   extra.recordsService.unpublishRecord(payload)
 );
 
-export { getUserRecords, getPublicRecords, addRecord, removeRecord, unpublishRecord, getSectionRecords };
+export {
+  getUserRecords,
+  getPublicRecords,
+  addRecord,
+  updateRecord,
+  removeRecord,
+  unpublishRecord,
+  getSectionRecords,
+};

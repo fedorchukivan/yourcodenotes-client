@@ -11,6 +11,7 @@ const AppRoute = {
   ROOT: '/records',
   RECORD_ID: '/:recordId',
   ADD_RECORD: '/add',
+  UPDATE_RECORD: '/edit',
   ANY: '*'
 };
 

@@ -54,7 +54,12 @@ export default function ProjectRecords() {
     <>
       <Navigation showSearch={true} handleTitle={handleTitle} handleTag={handleTag}/>
       <main className='records-container'>
-        <h5>Project: "{project.name}" <i className="fas fa-angle-right"></i> section: "{project.sections.find(s => s.id === sectionId).name}"</h5>
+        <h5>Project: "
+          <Link to={AppRoute.PROJECTS + '/' + projectId}>
+            {project.name}
+          </Link>
+          " <i className="fas fa-angle-right"></i> section: "{project.sections.find(s => s.id === sectionId).name}"
+        </h5>
         {
           (titleFilter || tagFilter) && 
             <div className='d-flex justify-content-between'>
@@ -62,7 +67,17 @@ export default function ProjectRecords() {
               <button type="button" className="btn btn-outline-danger" data-mdb-ripple-color="dark" onClick={handleClear}>clear</button>
             </div>
         }
-        { records.map(record => <RecordCard record={record} key={record.id} deletable={project.creator.email === user.email} handleDelete={handleDelete}/>) }
+        {
+          records.map(record =>
+            <RecordCard
+              record={record}
+              key={record.id}
+              deletable={true}
+              handleDelete={handleDelete}
+              editable={true}
+              editLink={AppRoute.PROJECTS + '/' + projectId + '/' + sectionId + AppRoute.UPDATE_RECORD + '/' + record.id}
+            />)
+        }
       </main>
       <Link to={AppRoute.PROJECTS + '/' + projectId + '/' + sectionId + AppRoute.ADD_RECORD}>
         <MDBBtn floating className='add-btn'>

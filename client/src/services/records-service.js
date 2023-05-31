@@ -104,6 +104,12 @@ export default class RecordsService {
     return removed;
   }
 
+  updateRecord(payload) {
+    const i = records.map(r => r.id).indexOf(payload.id);
+    records.splice(i, 1, payload);
+    return payload;
+  }
+
   unpublishRecord(id) {
     const i = records.map(r => r.id).indexOf(id);
     const upd = {...records[i], isPublic: false};
