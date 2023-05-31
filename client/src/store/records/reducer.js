@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { addRecord, getPublicRecords, getUserRecords, removeRecord, unpublishRecord } from "./actions";
+import { addRecord, getPublicRecords, getSectionRecords, getUserRecords, removeRecord, unpublishRecord } from "./actions";
 
 const initialState = {
   records: []
@@ -10,6 +10,9 @@ const reducer = createReducer(initialState, (builder) => {
     state.records = payload;
   });
   builder.addCase(getPublicRecords.fulfilled, (state, { payload }) => {
+    state.records = payload;
+  });
+  builder.addCase(getSectionRecords.fulfilled, (state, { payload }) => {
     state.records = payload;
   });
   builder.addCase(addRecord.fulfilled, (state, { payload }) => {

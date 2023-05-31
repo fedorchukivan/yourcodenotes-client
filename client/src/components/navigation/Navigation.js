@@ -29,8 +29,8 @@ export default function Navigation({ showSearch, handleTitle, handleTag }) {
   <ul className="navigation-container">
     { user && user.role !== 'admin' && <>
         <Link to={AppRoute.ROOT}><li className="navigation-button">Home</li></Link>
-        <Link to={AppRoute.ROOT}><li className="navigation-button">My Projects</li></Link>
-        <Link to={AppRoute.ROOT}><li className="navigation-button">Shared Projects</li></Link>
+        <Link to={AppRoute.PROJECTS}><li className="navigation-button">My Projects</li></Link>
+        <Link to={AppRoute.SHARED}><li className="navigation-button">Shared Projects</li></Link>
         <Link to={AppRoute.OPEN_DB}><li className="navigation-button">Open Database</li></Link>
       </>
     }

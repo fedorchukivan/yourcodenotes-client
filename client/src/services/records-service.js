@@ -42,7 +42,7 @@ const records = [
       username: 'Pastor Luke'
     },
     isPublic: true,
-    sectionId: null
+    sectionId: 's2'
   },
   {
     id: 'askd2jnjnkjdsaadenwkjf',
@@ -62,7 +62,7 @@ const records = [
       username: 'testerforever'
     },
     isPublic: true,
-    sectionId: null
+    sectionId: 'section1'
   }
 ];
 
@@ -80,6 +80,13 @@ export default class RecordsService {
   getPublicRecords(payload) {
     return records.filter(record =>
       record.isPublic &&
+      record.title.includes(payload.titleFilter) &&
+      (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
+    );
+  }
+
+  getSectionRecords(payload) {
+    return records.filter(r => r.sectionId === payload.sectionId).filter(record => 
       record.title.includes(payload.titleFilter) &&
       (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
     );

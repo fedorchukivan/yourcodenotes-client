@@ -9,6 +9,12 @@ import Records from '../records/Records';
 import Record from '../record/Record';
 import OpenDB from '../records/Open-db';
 import RecordCreate from '../record/Record-create-form';
+import Projects from '../projects/Projects';
+import Project from '../project/Project';
+import ProjectRecords from '../records/Project-records';
+import SharedProjects from '../projects/Shared-projects';
+import SharedProject from '../project/Shared-project';
+import SharedProjectRecords from '../records/Shared-records';
 
 export default function App() {
   const [showNavigation, setShowNavigation] = useState(true);
@@ -31,9 +37,19 @@ export default function App() {
         <Route path={AppRoute.SIGN_IN} element={<Sign />} />
         <Route path={AppRoute.SIGNUP} element={<Sign />} />
         <Route path={AppRoute.OPEN_DB} element={<OpenDB />} />
+        <Route path={AppRoute.PROJECTS} element={<Projects />} />
+        <Route path={AppRoute.SHARED} element={<SharedProjects />} />
+        <Route path={AppRoute.PROJECT} element={<Project />} />
+        <Route path={AppRoute.SHARED_PROJECT} element={<SharedProject />} />
+        <Route path={AppRoute.SECTION} element={<ProjectRecords />} />
+        <Route path={AppRoute.SHARED_SECTION} element={<SharedProjectRecords />} />
         <Route path={AppRoute.ROOT + AppRoute.RECORD_ID} element={<Record />} />
         <Route path={AppRoute.OPEN_DB + AppRoute.RECORD_ID} element={<Record />} />
-        <Route path={AppRoute.ROOT + AppRoute.ADD_RECORD} element={<RecordCreate sectionId={null} path={AppRoute.ROOT}/>} />
+        <Route path={AppRoute.SECTION + AppRoute.RECORD_ID} element={<Record />} />
+        <Route path={AppRoute.SHARED_SECTION + AppRoute.RECORD_ID} element={<Record />} />
+        <Route path={AppRoute.ROOT + AppRoute.ADD_RECORD} element={<RecordCreate path={AppRoute.ROOT}/>} />
+        <Route path={AppRoute.SECTION + AppRoute.ADD_RECORD} element={<RecordCreate path={AppRoute.PROJECTS}/>} />
+        <Route path={AppRoute.SHARED_SECTION + AppRoute.ADD_RECORD} element={<RecordCreate path={AppRoute.SHARED}/>} />
         <Route path={AppRoute.ANY} element={<Navigate to={AppRoute.ROOT}/>} />
       </Routes>
       <Footer />

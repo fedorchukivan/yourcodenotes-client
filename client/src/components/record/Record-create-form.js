@@ -1,27 +1,49 @@
 import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../navigation/Navigation";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
 import './record.css';
 import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { recordsActionCreator } from "../../store/actions";
+import { useEffect } from "react";
 
-export default function RecordCreate({ sectionId, path }) {
+export default function RecordCreate({ path }) {
   const user = useSelector(({ auth }) => auth.user);
 
+  const params = useParams();
+  
   const [tag, setTag] = useState('');
   const [sourceName, setSourceName] = useState('');
   const [sourceLink, setSourceLink] = useState('');
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
   const [solution, setSolution] = useState('');
+  const [sectionId, setSectionId] = useState('');
   const [sources, setSources] = useState(() => []);
   const [tags, setTags] = useState(() => []);
   const [isPublic, setIsPublic] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [backLink, setBackLink] = useState(path);
 
   const dispatch = useDispatch();
+  
+  useEffect(() => { 
+    switch(path) {
+      case AppRoute.ROOT:
+        setSectionId(null);
+        break;
+      case AppRoute.PROJECTS:
+        setSectionId(params.sectionId);
+        setBackLink(path + '/' + params.projectId + '/' + params.sectionId);
+        break;
+      case AppRoute.SHARED:
+        setSectionId(params.sectionId);
+        setBackLink(path + '/' + params.projectId + '/' + params.sectionId);
+        break;
+      default: {}
+    }
+  }, [params, path])
 
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
 
@@ -93,6 +115,9 @@ export default function RecordCreate({ sectionId, path }) {
             <button className="btn btn-primary" type="button" onClick={handleAddTag}>
               Add tag
             </button>
+            <button className="btn btn-danger" type="button" onClick={() => setTags([])}>
+              Clear
+            </button>
           </div>
           {
             tags.map((tag, index) =>
@@ -125,6 +150,9 @@ export default function RecordCreate({ sectionId, path }) {
           <button className="btn btn-primary" type="button" onClick={handleAddSource}>
             Add source
           </button>
+          <button className="btn btn-danger" type="button" onClick={() => setSources([])}>
+            Clear
+          </button>
         </div>
         <MDBListGroup className="ms-3" light numbered style={{ minWidth: '22rem' }}>
           {
@@ -144,5 +172,5 @@ export default function RecordCreate({ sectionId, path }) {
     </main>
   </>)
   :
-  <Navigate to={path} />;
+  <Navigate to={backLink} />;
 }
