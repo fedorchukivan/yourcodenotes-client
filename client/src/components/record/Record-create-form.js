@@ -75,16 +75,14 @@ export default function RecordCreate({ path }) {
     if (title && solution && problem) {
       const r = {
         title,
-        problemDescription: problem,
-        solutionDescription: solution,
-        creator: {
-          email: user.email,
-          username: user.username
-        },
-        isPublic,
+        problem_description: problem,
+        solution_description: solution,
+        creator_id: user.user_id,
+        is_public: isPublic,
         tags,
         sources,
-        sectionId
+        section_id: sectionId,
+        image_link: ''
       }
       dispatch(recordsActionCreator.addRecord(r));
       setFinished(true);

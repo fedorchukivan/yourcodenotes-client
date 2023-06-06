@@ -60,7 +60,7 @@ export default function OpenDB() {
           records.map(record =>
             <RecordCard
               record={record}
-              key={record.id}
+              key={record.record_id}
               deletable={user ? user.role === 'admin' : false}
               handleDelete={handleDelete}
               editable={false}

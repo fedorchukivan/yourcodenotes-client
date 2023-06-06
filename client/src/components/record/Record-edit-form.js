@@ -12,18 +12,18 @@ export default function RecordEdit({ path }) {
   const params = useParams();
   
   const user = useSelector(({ auth }) => auth.user);
-  const record = useSelector(({ records }) => records.records.find(r => r.id === params.recordId))
+  const record = useSelector(({ records }) => records.records.find(r => r.record_id === params.recordId))
   
   const [tag, setTag] = useState('');
   const [sourceName, setSourceName] = useState('');
   const [sourceLink, setSourceLink] = useState('');
   const [title, setTitle] = useState(record.title);
-  const [problem, setProblem] = useState(record.problemDescription);
-  const [solution, setSolution] = useState(record.solutionDescription);
-  const [sectionId, setSectionId] = useState(record.sectionId);
+  const [problem, setProblem] = useState(record.problem_description);
+  const [solution, setSolution] = useState(record.solution_description);
+  const [sectionId, setSectionId] = useState(record.section_id);
   const [sources, setSources] = useState(record.sources);
-  const [tags, setTags] = useState(record.tags);
-  const [isPublic, setIsPublic] = useState(record.isPublic);
+  const [tags, setTags] = useState(record.tags.map(t => t.name));
+  const [isPublic, setIsPublic] = useState(record.is_public);
   const [finished, setFinished] = useState(false);
   const [backLink, setBackLink] = useState(path);
 
@@ -75,18 +75,14 @@ export default function RecordEdit({ path }) {
     e.preventDefault();
     if (title && solution && problem) {
       const r = {
-        id: record.id,
+        record_id: record.record_id,
         title,
-        problemDescription: problem,
-        solutionDescription: solution,
-        creator: {
-          email: user.email,
-          username: user.username
-        },
-        isPublic,
+        problem_description: problem,
+        solution_description: solution,
+        is_public: isPublic,
         tags,
         sources,
-        sectionId
+        section_id: sectionId
       }
       dispatch(recordsActionCreator.updateRecord(r));
       setFinished(true);

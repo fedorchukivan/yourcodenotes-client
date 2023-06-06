@@ -9,7 +9,7 @@ import { projectsActionCreator } from "../../store/actions";
 export default function SharedProject() {
   const {projectId} = useParams();
 
-  const project = useSelector(({ projects }) => projects.projects.find(p => p.id === projectId));
+  const project = useSelector(({ projects }) => projects.projects.find(p => p.project_id === projectId));
   const user = useSelector(({ auth }) => auth.user);
   
   const [name, setName] = useState('');
@@ -29,19 +29,30 @@ export default function SharedProject() {
     <main>
       <div className="row mt-3">
         <div className="col-5 offset-2">
-          <h5>Project "{project.name}"</h5>
+          <h5>Project "{project.title}"</h5>
           <MDBInputGroup tag="form" className='d-flex w-auto p-2 ms-auto'>
             <input className='form-control' placeholder="Create new section..." value={name} onChange={e => setName(e.target.value)} />
             <MDBBtn outline onClick={e => handleAddSection(e)}>create</MDBBtn>
           </MDBInputGroup>
           <ul className="list-group list-group-light">
             {
-              project.sections.map(s =>
-                  <li key={s.id} className="list-group-item">
-                    <Link to={AppRoute.SHARED + '/' + projectId + '/' + s.id}>
-                    {s.name}
+              project.sections.map(s => !s.is_default ?
+                  <li key={s.section_id} className="list-group-item">
+                    <Link to={AppRoute.SHARED + '/' + projectId + '/' + s.section_id}>
+                    {s.title}
                     </Link>
                   </li>
+                  : <></>
+                )
+            }
+            {
+              project.sections.map(s => s.is_default ?
+                  <li key={s.section_id} className="list-group-item">
+                    <Link to={AppRoute.SHARED + '/' + projectId + '/' + s.section_id}>
+                    {s.title}
+                    </Link>
+                  </li>
+                  : <></>
                 )
             }
           </ul>

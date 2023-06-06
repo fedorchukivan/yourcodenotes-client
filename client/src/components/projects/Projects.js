@@ -22,7 +22,7 @@ export default function Projects() {
 
   const handleAddProject = e => {
     e.preventDefault();
-    dispatch(projectsActionCreator.addProject({user, name}));
+    dispatch(projectsActionCreator.addProject({title:name}));
     setName('');
   }
 
@@ -38,9 +38,9 @@ export default function Projects() {
           <ul className="list-group list-group-light">
             {
               projects.map(p =>
-                  <li key={p.id} className="list-group-item">
-                    <Link to={AppRoute.PROJECTS  + '/' + p.id}>
-                    {p.name}
+                  <li key={p.project_id} className="list-group-item">
+                    <Link to={AppRoute.PROJECTS  + '/' + p.project_id}>
+                    {p.title}
                     </Link>
                   </li>
                 )

@@ -9,7 +9,7 @@ import { projectsActionCreator } from "../../store/actions";
 export default function Project() {
   const {projectId} = useParams();
 
-  const project = useSelector(({ projects }) => projects.projects.find(p => p.id === projectId));
+  const project = useSelector(({ projects }) => projects.projects.find(p => p.project_id === projectId));
   const user = useSelector(({ auth }) => auth.user);
   
   const [name, setName] = useState('');
@@ -21,36 +21,47 @@ export default function Project() {
 
   const handleAddSection = e => {
     e.preventDefault();
-    dispatch(projectsActionCreator.addSection({ projectId, name }));
+    dispatch(projectsActionCreator.addSection({ project_id: projectId, title: name }));
     setName('');
   }
 
   const handleAddParticipant = e => {
     e.preventDefault();
-    dispatch(projectsActionCreator.addUser({ projectId, email }));
+    dispatch(projectsActionCreator.addUser({ project_id: projectId, email }));
     setEmail('');
   }
 
-  const handleRemoveParticipant = email =>  dispatch(projectsActionCreator.removeUser({ projectId, email }));
+  const handleRemoveParticipant = email =>  dispatch(projectsActionCreator.removeUser({ project_id: projectId, email }));
 
   return (<>
     <Navigation showSearch={false} handleTag={() => {}} handleTitle={() => {}} />
     <main>
       <div className="row mt-3">
         <div className="col-5 offset-2">
-          <h5>Project "{project.name}"</h5>
+          <h5>Project "{project.title}"</h5>
           <MDBInputGroup tag="form" className='d-flex w-auto p-2 ms-auto'>
             <input className='form-control' placeholder="Create new section..." value={name} onChange={e => setName(e.target.value)} />
             <MDBBtn outline onClick={e => handleAddSection(e)}>create</MDBBtn>
           </MDBInputGroup>
           <ul className="list-group list-group-light">
             {
-              project.sections.map(s =>
-                  <li key={s.id} className="list-group-item">
-                    <Link to={AppRoute.PROJECTS + '/' + projectId + '/' + s.id}>
-                    {s.name}
+              project.sections.map(s => !s.is_default ?
+                  <li key={s.section_id} className="list-group-item">
+                    <Link to={AppRoute.PROJECTS + '/' + projectId + '/' + s.section_id}>
+                    {s.title}
                     </Link>
                   </li>
+                  : <></>
+                )
+            }
+            {
+              project.sections.map(s => s.is_default ?
+                  <li key={s.section_id} className="list-group-item">
+                    <Link to={AppRoute.PROJECTS + '/' + projectId + '/' + s.section_id}>
+                    {s.title}
+                    </Link>
+                  </li>
+                  : <></>
                 )
             }
           </ul>

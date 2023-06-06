@@ -1,119 +1,68 @@
-const records = [
-  {
-    id: 'amsdwdejwasdcnjnfjvhnr',
-    title: 'Card Title',
-    problemDescription: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
-    solutionDescription: `As akdsfljnva sjbs ahe j wnm qwn  qw nmnm nqn qn rnq n rnb erw bnr qwbe rbn wqrb rbqwe bnwe b ewmf qnm bnfqfbn webf qbnf bnqw fb qwbf bnq ebf qbnw fb qf`,
-    sources: [
-      {
-        id: 'dasdvvwsdvsfvewwv',
-        link: 'localhost:3000/',
-        name: 'YourCodeNotes'
-      },
-      {
-        id: 'odjbtenjknvjkdvknv',
-        link: 'localhost:3000/',
-        name: 'First'
-      }
-    ],
-    tags: ['c#', 'backend', '.net'],
-    creator: {
-      email: 'test@at.ua',      
-      username: 'testerforever'
-    },
-    isPublic: true,
-    sectionId: null
-  },
-  {
-    id: 'askd2jnjnkjenwkjf',
-    title: 'How to add info card',
-    problemDescription: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
-    solutionDescription: `As akdsfljnva sjbs ahe j wnm qwn  qw nmnm nqn qn rnq n rnb erw bnr qwbe rbn wqrb rbqwe bnwe b ewmf qnm bnfqfbn webf qbnf bnqw fb qwbf bnq ebf qbnw fb qf`,
-    sources: [
-      {
-        id: 'jwnvionqvjqnudvndvksjnv',
-        link: 'https://mdbootstrap.com/docs/react/components/cards/',
-        name: 'MDB Card component'
-      }
-    ],
-    tags: ['react', 'mdb', 'frontend'],
-    creator: {
-      email: 'abc@d.t',      
-      username: 'Pastor Luke'
-    },
-    isPublic: true,
-    sectionId: 's2'
-  },
-  {
-    id: 'askd2jnjnkjdsaadenwkjf',
-    title: 'How to add info card',
-    problemDescription: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
-    solutionDescription: `As akdsfljnva sjbs ahe j wnm qwn  qw nmnm nqn qn rnq n rnb erw bnr qwbe rbn wqrb rbqwe bnwe b ewmf qnm bnfqfbn webf qbnf bnqw fb qwbf bnq ebf qbnw fb qf`,
-    sources: [
-      {
-        id: 'jwnvionqvjqnudvndvksjnv',
-        link: 'https://mdbootstrap.com/docs/react/components/cards/',
-        name: 'MDB Card component'
-      }
-    ],
-    tags: ['react', 'mdb', 'frontend'],
-    creator: {
-      email: 'test@at.ua',      
-      username: 'testerforever'
-    },
-    isPublic: true,
-    sectionId: 'section1'
-  }
-];
+import { ApiPath } from "../common/enums/api-path";
+import { HttpMethod } from "../common/enums/http-methods";
+import { RecordRoutes } from "../common/enums/record-routes";
+import { serverConfig } from "../config";
 
 export default class RecordsService {
+  constructor(http) {
+    this.http = http;
+  }
 
   getUserRecords(payload) {
-    return records.filter(record => 
-      record.creator.email === payload.user.email &&
-      !record.sectionId &&
-      record.title.includes(payload.titleFilter) &&
-      (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
-    );
+    return this.http.load(this._getUrl(RecordRoutes.RECORDS), {
+      method: HttpMethod.POST,
+      contentType: 'application/json',
+      payload
+    });
   }
 
   getPublicRecords(payload) {
-    return records.filter(record =>
-      record.isPublic &&
-      record.title.includes(payload.titleFilter) &&
-      (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
-    );
+    return this.http.load(this._getUrl(RecordRoutes.OPEN_DB), {
+      method: HttpMethod.POST,
+      contentType: 'application/json',
+      payload
+    });
   }
 
   getSectionRecords(payload) {
-    return records.filter(r => r.sectionId === payload.sectionId).filter(record => 
-      record.title.includes(payload.titleFilter) &&
-      (payload.tagFilter ? record.tags.includes(payload.tagFilter) : true)
-    );
+    return this.http.load(this._getUrl(RecordRoutes.OF_SECTION + '/' + payload.sectionId), {
+      method: HttpMethod.POST,
+      contentType: 'application/json',
+      payload
+    });
   }
 
   addRecord(payload) {
-    payload.id = Math.random().toString();
-    records.push(payload);
-    return payload;
+    return this.http.load(this._getUrl(RecordRoutes.CREATE), {
+      method: HttpMethod.POST,
+      contentType: 'application/json',
+      payload
+    });
   }
 
   removeRecord(id) {
-    const i = records.map(r => r.id).indexOf(id);
-    const removed = records.splice(i, 1)[0];
-    return removed;
+    return this.http.load(this._getUrl(RecordRoutes.DELETE + '/' + id), {
+      method: HttpMethod.DELETE
+    });
   }
 
   updateRecord(payload) {
-    const i = records.map(r => r.id).indexOf(payload.id);
-    records.splice(i, 1, payload);
-    return payload;
+    return this.http.load(this._getUrl(RecordRoutes.UPDATE), {
+      method: HttpMethod.UPDATE,
+      contentType: 'application/json',
+      payload
+    });
   }
 
-  unpublishRecord(id) {
-    const i = records.map(r => r.id).indexOf(id);
-    const upd = {...records[i], isPublic: false};
-    records.splice(i, 1, upd);
-    return records.filter(record => record.isPublic);
+  unpublishRecord(recordId) {
+    return this.http.load(this._getUrl(RecordRoutes.UNPUBLISH + '/' + recordId), {
+      method: HttpMethod.UPDATE,
+      contentType: 'application/json',
+      payload: {}
+    });
+  }
+  
+  _getUrl(path = '') {
+    return `${serverConfig.API}${ApiPath.RECORD}${path}`;
   }
 }

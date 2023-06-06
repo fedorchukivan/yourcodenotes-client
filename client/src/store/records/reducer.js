@@ -16,17 +16,18 @@ const reducer = createReducer(initialState, (builder) => {
     state.records = payload;
   });
   builder.addCase(addRecord.fulfilled, (state, { payload }) => {
-    state.records.push(payload);
+    // state.records.unshift(payload);
   });
   builder.addCase(updateRecord.fulfilled, (state, { payload }) => {
-    const i = state.records.map(p => p.id).indexOf(payload.id);
-    if (i > -1) state.records.splice(i, 1, payload);
+    // const i = state.records.map(p => p.project_id).indexOf(payload.project_id);
+    // if (i > -1) state.records.splice(i, 1, payload);
   });
   builder.addCase(removeRecord.fulfilled, (state, { payload }) => {
-    state.records = state.records.filter(r => r.id !== payload.id);
+    state.records = state.records.filter(r => r.record_id !== payload.record_id);
   });
   builder.addCase(unpublishRecord.fulfilled, (state, { payload }) => {
-    state.records = payload;
+    const i = state.records.map(p => p.project_id).indexOf(payload.project_id);
+    if (i > -1) state.records.splice(i, 1);
   });
 });
 

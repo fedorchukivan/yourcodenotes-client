@@ -12,7 +12,7 @@ export default function SharedProjects() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) dispatch(projectsActionCreator.getSharedProjects(user));
+    if (user) dispatch(projectsActionCreator.getSharedProjects());
   }, [dispatch, user])
 
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
@@ -25,9 +25,9 @@ export default function SharedProjects() {
           <ul className="list-group list-group-light">
             {
               projects.map(p =>
-                  <li key={p.id} className="list-group-item">
-                    <Link to={AppRoute.SHARED  + '/' + p.id}>
-                    {p.name}
+                  <li key={p.project_id} className="list-group-item">
+                    <Link to={AppRoute.SHARED  + '/' + p.project_id}>
+                    {p.title}
                     </Link>
                   </li>
                 )

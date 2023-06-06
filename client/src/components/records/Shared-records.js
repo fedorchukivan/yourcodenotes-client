@@ -12,7 +12,7 @@ import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 export default function SharedProjectRecords() {
   const {projectId, sectionId} = useParams();
 
-  const project = useSelector(({ projects }) => projects.projects.find(p => p.id === projectId));
+  const project = useSelector(({ projects }) => projects.projects.find(p => p.project_id === projectId));
   const user = useSelector(({ auth }) => auth.user);
   const records = useSelector(({ records }) => records.records);
 
@@ -52,10 +52,10 @@ export default function SharedProjectRecords() {
       <main className='records-container'>
         <h5>Project: "
           <Link to={AppRoute.SHARED + '/' + projectId}>
-            {project.name}
+            {project.title}
           </Link>
           "
-          <i className="fas fa-angle-right"></i> section: "{project.sections.find(s => s.id === sectionId).name}"
+          <i className="fas fa-angle-right"></i> section: "{project.sections.find(s => s.section_id === sectionId).title}"
         </h5>
         {
           (titleFilter || tagFilter) && 
@@ -68,11 +68,11 @@ export default function SharedProjectRecords() {
           records.map(record =>
             <RecordCard
               record={record}
-              key={record.id}
+              key={record.record_id}
               deletable={false}
               handleDelete={() => {}}
               editable={record.creator.email === user.email}
-              editLink={AppRoute.SHARED + '/' + projectId + '/' + sectionId + AppRoute.UPDATE_RECORD + '/' + record.id}
+              editLink={AppRoute.SHARED + '/' + projectId + '/' + sectionId + AppRoute.UPDATE_RECORD + '/' + record.record_id}
             />)
         }
       </main>

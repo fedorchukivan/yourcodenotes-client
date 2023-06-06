@@ -1,17 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppRoute from '../../common/enums/app-route';
 import TextInput from '../input/Input';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActionCreator } from '../../store/actions';
+import MD5 from 'crypto-js/md5';
 
 const SignUpForm = () => {
+  const user = useSelector(({ auth }) => auth.user);
   
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(authActionCreator.signUp({
+      email,
+      password: MD5(password).toString(),
+      username
+    }));
   }
+
+  const token = window.sessionStorage.getItem('token');
+  useEffect(() => {
+    if (!user && token) dispatch(authActionCreator.getUser());
+  }, [dispatch, user]);
+
+  if (user) return <Navigate to={user.role === 'admin' ? AppRoute.OPEN_DB : AppRoute.ROOT} />
 
   return (
     <>

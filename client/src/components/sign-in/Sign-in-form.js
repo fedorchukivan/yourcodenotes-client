@@ -1,9 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import TextInput from "../input/Input";
 import { Link, Navigate } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
 import { useDispatch, useSelector } from "react-redux";
 import { authActionCreator } from "../../store/actions";
+import MD5 from 'crypto-js/md5';
+
 
 export default function SignInForm() {
   const user = useSelector(({ auth }) => auth.user);
@@ -14,9 +16,18 @@ export default function SignInForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = useCallback((e) => {
-    dispatch(authActionCreator.signIn({ email, password }))
     e.preventDefault();
+    console.log(MD5(password).toString());
+    dispatch(authActionCreator.signIn({
+      email,
+      password: MD5(password).toString()
+    }));
   }, [dispatch, email, password]);
+
+  const token = window.sessionStorage.getItem('token');
+  useEffect(() => {
+    if (!user && token) dispatch(authActionCreator.getUser());
+  }, [dispatch, user]);
   
   if (user) return <Navigate to={user.role === 'admin' ? AppRoute.OPEN_DB : AppRoute.ROOT} />
 

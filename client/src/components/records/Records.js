@@ -19,7 +19,7 @@ export default function Records() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    if (user) dispatch(recordsActionCreator.getUserRecords({user, titleFilter, tagFilter}));
+    if (user) dispatch(recordsActionCreator.getUserRecords({ titleFilter, tagFilter }));
   }, [dispatch, user, titleFilter, tagFilter]);
   
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
@@ -32,19 +32,19 @@ export default function Records() {
   const handleTitle = (title) => {
     setTitleFiler(title);
     if (tagFilter) setTagFiler('');
-    if (user) dispatch(recordsActionCreator.getUserRecords({user, titleFilter, tagFilter}));
+    if (user) dispatch(recordsActionCreator.getUserRecords({ titleFilter, tagFilter }));
   }
 
   const handleTag = (tag) => {
     setTagFiler(tag);
     if (titleFilter) setTitleFiler('');
-    if (user) dispatch(recordsActionCreator.getUserRecords({user, titleFilter, tagFilter}));
+    if (user) dispatch(recordsActionCreator.getUserRecords({ titleFilter, tagFilter }));
   }
 
   const handleClear = () => {
     setTitleFiler('');
     setTagFiler('');
-    if (user) dispatch(recordsActionCreator.getUserRecords({user, titleFilter, tagFilter}));
+    if (user) dispatch(recordsActionCreator.getUserRecords({ titleFilter, tagFilter }));
   }
 
   return (
@@ -62,11 +62,11 @@ export default function Records() {
           records.map(record =>
             <RecordCard
               record={record}
-              key={record.id}
+              key={record.record_id}
               deletable={true}
               handleDelete={handleDelete}
               editable={true}
-              editLink={AppRoute.ROOT + AppRoute.UPDATE_RECORD + '/' + record.id}
+              editLink={AppRoute.ROOT + AppRoute.UPDATE_RECORD + '/' + record.record_id}
             />)
         }
       </main>
