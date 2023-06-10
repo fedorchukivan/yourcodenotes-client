@@ -5,6 +5,7 @@ import AppRoute from "../../common/enums/app-route";
 import { createSelector } from "@reduxjs/toolkit";
 import './record.css';
 import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
+import showParsedSolution from "./helpers/show-parsed-solution";
 
 const cardSelector = createSelector(
   (state) => state.records.records,
@@ -39,7 +40,7 @@ export default function Record() {
       <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Problem description</MDBTypography>
       <MDBTypography className="ms-3">{record.problem_description}</MDBTypography>
       <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Solution</MDBTypography>
-      <MDBTypography className="ms-3">{record.solution_description}</MDBTypography>
+      { showParsedSolution(record.solution_description) }
       <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Sources</MDBTypography>
       <MDBListGroup className="ms-3" light numbered style={{ minWidth: '22rem' }}>
         {

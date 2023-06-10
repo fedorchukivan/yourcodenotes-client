@@ -7,12 +7,14 @@ import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-rea
 import { useState } from "react";
 import { recordsActionCreator } from "../../store/actions";
 import { useEffect } from "react";
+import showParsedSolution from "./helpers/show-parsed-solution";
 
 export default function RecordEdit({ path }) {
   const params = useParams();
   
   const user = useSelector(({ auth }) => auth.user);
-  const record = useSelector(({ records }) => records.records.find(r => r.record_id === params.recordId))
+  const record = useSelector(({ records }) => records.records.find(r => r.record_id === params.recordId));
+  const status = useSelector(({ records }) => records.DataStatus);
   
   const [tag, setTag] = useState('');
   const [sourceName, setSourceName] = useState('');
@@ -24,7 +26,6 @@ export default function RecordEdit({ path }) {
   const [sources, setSources] = useState(record.sources);
   const [tags, setTags] = useState(record.tags.map(t => t.name));
   const [isPublic, setIsPublic] = useState(record.is_public);
-  const [finished, setFinished] = useState(false);
   const [backLink, setBackLink] = useState(path);
 
   const dispatch = useDispatch();
@@ -85,11 +86,10 @@ export default function RecordEdit({ path }) {
         section_id: sectionId
       }
       dispatch(recordsActionCreator.updateRecord(r));
-      setFinished(true);
     }
   }
 
-  return !finished ? (
+  return !(status === 'success') ? (
   <>
     <Navigation showSearch={false} />
   
@@ -129,6 +129,8 @@ export default function RecordEdit({ path }) {
         <textarea className="form-control" rows="2" value={problem} onChange={e => setProblem(e.target.value)} required></textarea>
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Solution</MDBTypography>
         <textarea className="form-control" rows="4" value={solution} onChange={e => setSolution(e.target.value)} required></textarea>
+        <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Preview</MDBTypography>
+        { showParsedSolution(solution) }
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Sources</MDBTypography>
         <div className="input-group mb-3">
           <input

@@ -1,3 +1,14 @@
 .record-view-container {
   padding: 30px 10%;
 }
+
+.tab {
+  display: inline-block;
+  width: 10px;
+}
+
+code {
+  display: block;
+  background-color: gainsboro;
+  padding: 5px;
+}
