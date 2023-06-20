@@ -12,6 +12,11 @@ import './record-card.css'
 export default function RecordCard({ record, deletable, handleDelete, editable, editLink }) {
   const { pathname } = useLocation();
 
+  const formatDate = date => {
+    const timestamp = new Date(date);
+    return timestamp.toLocaleString();
+  }
+
   return (
   <>
     <MDBCard border='info'>
@@ -35,7 +40,10 @@ export default function RecordCard({ record, deletable, handleDelete, editable, 
             </MDBBadge>)
           }
         </div>
-        <i className='text-secondary'>By: {record.creator.username}</i>
+        <div className='d-flex flex-column'>
+          <i className='text-secondary'>By: {record.creator.username}</i>
+          <i className='text-secondary'>{formatDate(record.created_at)}</i>
+        </div>
       </MDBCardFooter>
     </MDBCard>
   </>);

@@ -19,6 +19,11 @@ export default function Record() {
   const user = useSelector(({ auth }) => auth.user);
   const record = useSelector((state) => cardSelector(state, recordId));
 
+  const formatDate = date => {
+    const timestamp = new Date(date);
+    return timestamp.toLocaleString();
+  }
+
   if (!user) return <Navigate to={AppRoute.SIGN_IN} />
 
   return (
@@ -28,6 +33,7 @@ export default function Record() {
     <main className="record-view-container">
       <MDBTypography tag='h3'>{record.title}</MDBTypography>
       <i className='text-secondary'>By: {record.creator.username}</i>
+      <i className='text-secondary float-end'>{formatDate(record.created_at)}</i>
       <hr/>
       <div>
         {
