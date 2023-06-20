@@ -3,7 +3,7 @@ import Navigation from "../navigation/Navigation";
 import { Navigate, useParams } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
 import './record.css';
-import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography, MDBFile } from "mdb-react-ui-kit";
+import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography, MDBFile, MDBIcon } from "mdb-react-ui-kit";
 import {
   MDBModal,
   MDBModalDialog,
@@ -194,6 +194,9 @@ export default function RecordEdit({ path }) {
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\n')}>
             <i className="fas fa-arrow-turn-down"></i>
           </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\r')}>
+            <MDBIcon far icon="file-code" />
+          </button>
         </div>
         <textarea id="solution" className="form-control" rows="4" value={solution} onChange={e => setSolution(e.target.value)} required></textarea>
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Preview</MDBTypography>
@@ -252,9 +255,11 @@ export default function RecordEdit({ path }) {
               <MDBBtn color='secondary' onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn onClick={(e) => {
+              <MDBBtn onClick={() => {
+                if (photo) {
                 handleAddPhoto(photo);
-                toggleShow()
+                toggleShow();
+                }
                 }}>Save changes</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>

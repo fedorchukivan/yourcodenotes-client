@@ -3,7 +3,7 @@ import Navigation from "../navigation/Navigation";
 import { Navigate, useParams } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
 import './record.css';
-import { MDBBadge, MDBFile, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
+import { MDBBadge, MDBFile, MDBIcon, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
 import {
   MDBModal,
   MDBModalDialog,
@@ -182,12 +182,20 @@ export default function RecordCreate({ path }) {
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\*')}>
             <i className="fas fa-circle"></i>
           </button>
-          <MDBBtn className="btn btn-light btn-floating" onClick={toggleShow}><i className="far fa-image"></i></MDBBtn>
+          <MDBBtn className="btn btn-light btn-floating" onClick={ e => {
+            e.preventDefault();
+            toggleShow();
+            }}>
+              <i className="far fa-image"></i>
+            </MDBBtn>
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\t')}>
             <i className="fas fa-bars-staggered"></i>
           </button>
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\n')}>
             <i className="fas fa-arrow-turn-down"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\r')}>
+            <MDBIcon far icon="file-code" />
           </button>
         </div>
         <textarea id="solution" className="form-control" rows="4" value={solution} onChange={e => setSolution(e.target.value)} required></textarea>
@@ -247,7 +255,12 @@ export default function RecordCreate({ path }) {
               <MDBBtn color='secondary' onClick={toggleShow}>
                 Close
               </MDBBtn>
-              <MDBBtn onClick={async () => { handleAddPhoto(photo); toggleShow() }}>Save changes</MDBBtn>
+              <MDBBtn onClick={() => {
+                if (photo) {
+                handleAddPhoto(photo);
+                toggleShow();
+                }
+                }}>Save changes</MDBBtn>
             </MDBModalFooter>
           </MDBModalContent>
         </MDBModalDialog>
