@@ -36,6 +36,12 @@ export default class ProjectsService {
     });
   }
 
+  removeSection(id) {
+    return this.http.load(this._getUrl(ProjectRoutes.DELETE_SECTION + '/' + id), {
+      method: HttpMethod.DELETE
+    });
+  }
+
   addUser(payload) {
     return this.http.load(this._getUrl(ProjectRoutes.ADD_PARTICIPANT), {
       method: HttpMethod.POST,

@@ -25,13 +25,17 @@ export default function Project() {
     setName('');
   }
 
+  const handleDeleteSection = id => {
+    dispatch(projectsActionCreator.deleteSection(id));
+  }
+
   const handleAddParticipant = e => {
     e.preventDefault();
     dispatch(projectsActionCreator.addUser({ project_id: projectId, email }));
     setEmail('');
   }
 
-  const handleRemoveParticipant = email =>  dispatch(projectsActionCreator.removeUser({ project_id: projectId, email }));
+  const handleRemoveParticipant = email => dispatch(projectsActionCreator.removeUser({ project_id: projectId, email }));
 
   return (<>
     <Navigation showSearch={false} handleTag={() => {}} handleTitle={() => {}} />
@@ -50,6 +54,7 @@ export default function Project() {
                     <Link to={AppRoute.PROJECTS + '/' + projectId + '/' + s.section_id}>
                     {s.title}
                     </Link>
+                    <i className="fas fa-square-xmark float-end text-danger clickable" onClick={() => handleDeleteSection(s.section_id)}></i>
                   </li>
                   : <></>
                 )
