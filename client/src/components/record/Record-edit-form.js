@@ -93,15 +93,15 @@ export default function RecordEdit({ path }) {
     const txtarea = document.getElementById("solution");
     const start = txtarea.selectionStart;
     const finish = txtarea.selectionEnd;
-    setSolution(txtarea.value.substring(0, start) + pairTag
-                    + txtarea.value.substring(start, finish) + pairTag
+    setSolution(txtarea.value.substring(0, start) + `${pairTag} `
+                    + txtarea.value.substring(start, finish) + `${pairTag} `
                     + txtarea.value.substring(finish));
   }
 
   const addSingleTag = singleTag => {
     const txtarea = document.getElementById("solution");
     const start = txtarea.selectionStart;
-    setSolution(txtarea.value.substring(0, start) + singleTag
+    setSolution(txtarea.value.substring(0, start) + `${singleTag} `
                     + txtarea.value.substring(start));
   }
 
