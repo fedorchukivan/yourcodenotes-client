@@ -5,6 +5,7 @@ const ActionType = {
   ADD_PROJECT: 'projects/add',
   ADD_SECTION: 'projects/add-section',
   DELETE_SECTION: 'projects/delete-section',
+  DELETE_PROJECT: 'projects/delete-project',
   ADD_USER: 'projects/add-user',
   REMOVE_USER: 'projects/remove-user',
 }

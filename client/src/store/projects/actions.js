@@ -21,6 +21,10 @@ const deleteSection = createAsyncThunk(ActionType.DELETE_SECTION, async (payload
   await extra.projectsService.removeSection(payload)
 );
 
+const deleteProject = createAsyncThunk(ActionType.DELETE_PROJECT, async (payload, { extra }) =>
+  await extra.projectsService.removeProject(payload)
+);
+
 const addUser = createAsyncThunk(ActionType.ADD_USER, async (payload, { extra }) =>
   await extra.projectsService.addUser(payload)
 );
@@ -35,6 +39,7 @@ export {
   addProject,
   addSection,
   deleteSection,
+  deleteProject,
   addUser,
   removeUser,
 };

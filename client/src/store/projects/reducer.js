@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { addProject, addSection, addUser, deleteSection, getSharedProjects, getUserProjects, removeUser } from "./actions";
+import { addProject, addSection, addUser, deleteProject, deleteSection, getSharedProjects, getUserProjects, removeUser } from "./actions";
 
 const initialState = {
   projects: []
@@ -23,6 +23,9 @@ const reducer = createReducer(initialState, (builder) => {
     for (let i = 0; i < state.projects.length; i++) {
       state.projects[i].sections = state.projects[i].sections.filter(s => s.section_id !== payload.section_id);
     }
+  });
+  builder.addCase(deleteProject.fulfilled, (state, { payload }) => {
+    state.projects = state.projects.filter(p => p.project_id !== payload.project_id);
   });
   builder.addCase(addUser.fulfilled, (state, { payload }) => {
     if (payload)

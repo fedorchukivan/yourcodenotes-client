@@ -26,6 +26,10 @@ export default function Projects() {
     setName('');
   }
 
+  const handleDelete = id => {
+    dispatch(projectsActionCreator.deleteProject(id));
+  }
+
   return (<>
     <Navigation showSearch={false} handleTag={() => {}} handleTitle={() => {}} />
     <main>
@@ -42,6 +46,7 @@ export default function Projects() {
                     <Link to={AppRoute.PROJECTS  + '/' + p.project_id}>
                     {p.title}
                     </Link>
+                    <i className="fas fa-square-xmark float-end text-danger clickable" onClick={() => handleDelete(p.project_id)}></i>
                   </li>
                 )
             }

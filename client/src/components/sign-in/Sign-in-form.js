@@ -17,7 +17,6 @@ export default function SignInForm() {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    console.log(MD5(password).toString());
     dispatch(authActionCreator.signIn({
       email,
       password: MD5(password).toString()
