@@ -89,6 +89,22 @@ export default function RecordCreate({ path }) {
     }
   }
 
+  const addPairTag = pairTag => {
+    const txtarea = document.getElementById("solution");
+    const start = txtarea.selectionStart;
+    const finish = txtarea.selectionEnd;
+    setSolution(txtarea.value.substring(0, start) + pairTag
+                    + txtarea.value.substring(start, finish) + pairTag
+                    + txtarea.value.substring(finish));
+  }
+
+  const addSingleTag = singleTag => {
+    const txtarea = document.getElementById("solution");
+    const start = txtarea.selectionStart;
+    setSolution(txtarea.value.substring(0, start) + singleTag
+                    + txtarea.value.substring(start));
+  }
+
   return !(status === 'success') ? (
   <>
     <Navigation showSearch={false} />
@@ -128,7 +144,36 @@ export default function RecordCreate({ path }) {
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Problem description</MDBTypography>
         <textarea className="form-control" rows="2" value={problem} onChange={e => setProblem(e.target.value)} required></textarea>
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Solution</MDBTypography>
-        <textarea className="form-control" rows="4" value={solution} onChange={e => setSolution(e.target.value)} required></textarea>
+        <div className="d-flex mt-2 ms-2">
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\b')}>
+            <i className="fas fa-bold"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\i')}>
+            <i className="fas fa-italic"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\u')}>
+            <i className="fas fa-underline"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\c')}>
+            <i className="fas fa-code"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\l')}>
+            <i className="fas fa-list-ul"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\*')}>
+            <i className="fas fa-circle"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\a')}>
+            <i class="far fa-image"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\t')}>
+            <i class="fas fa-bars-staggered"></i>
+          </button>
+          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\n')}>
+            <i class="fas fa-arrow-turn-down"></i>
+          </button>
+        </div>
+        <textarea id="solution" className="form-control" rows="4" value={solution} onChange={e => setSolution(e.target.value)} required></textarea>
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Preview</MDBTypography>
         { showParsedSolution(solution) }
         <MDBTypography tag='h5' className="mt-3 mb-1 ms-2">Sources</MDBTypography>

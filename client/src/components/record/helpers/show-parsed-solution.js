@@ -11,6 +11,7 @@ export default function showParsedSolution (solutionString) {
     underline: [],
     uList: [],
     uListItem: [],
+    img: []
   }
 
   const createCodeBlock = (inner) => <code>{inner}</code>;
@@ -19,6 +20,9 @@ export default function showParsedSolution (solutionString) {
   const createUnderlineBlock = (inner) => <u>{inner}</u>;
   const createUnorderedList = (inner) => <ul>{inner}</ul>;
   const createListItem = (inner) => <li>{inner}</li>;
+  const createImg = (source) => <div className="text-center">
+    <img src={source[0].props.children} className="img-fluid" alt=""/>
+  </div>
 
   const handleOpenCloseTag = (tagname, template) => {
     semantics[pickOpened()].push(<>{text}</>);
@@ -85,6 +89,10 @@ export default function showParsedSolution (solutionString) {
       else if (characters[i] === '*') {
         i++;
         handleOpenCloseTag('uListItem', createListItem);
+      }
+      else if (characters[i] === 'a') {
+        i++;
+        handleOpenCloseTag('img', createImg);
       }
       else if (characters[i] === '\\') {
         i++;
