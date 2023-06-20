@@ -18,7 +18,7 @@ class Http {
       .then(this.checkStatus)
       .then(res => res.json())
       .catch(error => {
-        throw error
+        throw error;
       });
   }
 
@@ -38,7 +38,7 @@ class Http {
 
   checkStatus(res) {
     if (!res.ok) {
-      throw new Error(`${res.status}: ${res.statusText}`);
+      throw new Error(`${res.status}`);
     }
 
     return res;

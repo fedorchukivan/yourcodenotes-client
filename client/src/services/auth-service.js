@@ -20,15 +20,25 @@ export default class AuthService {
       method: HttpMethod.POST,
       contentType: 'application/json',
       payload
+    }).catch(error => {
+      if (error.message === '406') {
+        alert('Wrong email or password');
+      }
+      throw error;
     });
   }
 
   signUp(payload) {
     return this.http.load(this._getUrl(AuthRoutes.SIGN_UP), {
-      method: HttpMethod.POST,
-      contentType: 'application/json',
-      payload
-    });
+        method: HttpMethod.POST,
+        contentType: 'application/json',
+        payload
+      }).catch(error => {
+        if (error.message === '406') {
+          alert('User with such email already exist');
+        }
+        throw error;
+      });
   }
 
   _getUrl(path = '') {

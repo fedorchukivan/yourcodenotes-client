@@ -17,11 +17,16 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(authActionCreator.signUp({
-      email,
-      password: MD5(password).toString(),
-      username
-    }));
+    if (password.length >= 6) {
+      dispatch(authActionCreator.signUp({
+        email,
+        password: MD5(password).toString(),
+        username
+      }));
+    }
+    else {
+      alert('Password must be at least 6 characters long');
+    }
   }
 
   const token = window.sessionStorage.getItem('token');
