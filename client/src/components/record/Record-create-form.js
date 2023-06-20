@@ -3,11 +3,22 @@ import Navigation from "../navigation/Navigation";
 import { Navigate, useParams } from "react-router-dom";
 import AppRoute from "../../common/enums/app-route";
 import './record.css';
-import { MDBBadge, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
+import { MDBBadge, MDBFile, MDBListGroup, MDBListGroupItem, MDBTypography } from "mdb-react-ui-kit";
+import {
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+  MDBBtn
+} from 'mdb-react-ui-kit';
 import { useState } from "react";
 import { recordsActionCreator } from "../../store/actions";
 import { useEffect } from "react";
 import showParsedSolution from "./helpers/show-parsed-solution";
+import { cloudinaryUpload } from "./helpers/upload-img";
 
 export default function RecordCreate({ path }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -21,11 +32,15 @@ export default function RecordCreate({ path }) {
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
   const [solution, setSolution] = useState('');
+  const [photo, setPhoto] = useState();
   const [sectionId, setSectionId] = useState('');
   const [sources, setSources] = useState(() => []);
   const [tags, setTags] = useState(() => []);
   const [isPublic, setIsPublic] = useState(false);
   const [backLink, setBackLink] = useState(path);
+  const [basicModal, setBasicModal] = useState(false);
+
+  const toggleShow = () => setBasicModal(!basicModal);
 
   const dispatch = useDispatch();
   
@@ -105,6 +120,10 @@ export default function RecordCreate({ path }) {
                     + txtarea.value.substring(start));
   }
 
+  const handleAddPhoto = async photo => {
+    cloudinaryUpload(photo).then(link => addSingleTag(`\\a ${link}\\a`));
+  }
+
   return !(status === 'success') ? (
   <>
     <Navigation showSearch={false} />
@@ -163,14 +182,12 @@ export default function RecordCreate({ path }) {
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\*')}>
             <i className="fas fa-circle"></i>
           </button>
-          <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addPairTag('\\a')}>
-            <i class="far fa-image"></i>
-          </button>
+          <MDBBtn className="btn btn-light btn-floating" onClick={toggleShow}><i className="far fa-image"></i></MDBBtn>
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\t')}>
-            <i class="fas fa-bars-staggered"></i>
+            <i className="fas fa-bars-staggered"></i>
           </button>
           <button type="button" className="btn btn-light btn-floating" data-mdb-ripple-color="dark" onClick={() => addSingleTag('\\n')}>
-            <i class="fas fa-arrow-turn-down"></i>
+            <i className="fas fa-arrow-turn-down"></i>
           </button>
         </div>
         <textarea id="solution" className="form-control" rows="4" value={solution} onChange={e => setSolution(e.target.value)} required></textarea>
@@ -214,6 +231,27 @@ export default function RecordCreate({ path }) {
           Submit
         </button>
       </form>
+      <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Modal title</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={toggleShow}></MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              <MDBFile id='customFile' onChange={e => {
+                setPhoto(e.target.files[0]);
+              }}/>
+            </MDBModalBody>
+            <MDBModalFooter>
+              <MDBBtn color='secondary' onClick={toggleShow}>
+                Close
+              </MDBBtn>
+              <MDBBtn onClick={async () => { handleAddPhoto(photo); toggleShow() }}>Save changes</MDBBtn>
+            </MDBModalFooter>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
     </main>
   </>)
   :
