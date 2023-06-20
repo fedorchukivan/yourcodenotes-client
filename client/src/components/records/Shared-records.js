@@ -46,6 +46,10 @@ export default function SharedProjectRecords() {
     if (user) dispatch(recordsActionCreator.getSectionRecords({ sectionId, titleFilter, tagFilter}));
   }
 
+  const handleDelete = (id) => {
+    dispatch(recordsActionCreator.removeRecord(id));
+  }
+
   return (
     <>
       <Navigation showSearch={true} handleTitle={handleTitle} handleTag={handleTag}/>
@@ -69,8 +73,8 @@ export default function SharedProjectRecords() {
             <RecordCard
               record={record}
               key={record.record_id}
-              deletable={false}
-              handleDelete={() => {}}
+              deletable={record.creator.email === user.email}
+              handleDelete={handleDelete}
               editable={record.creator.email === user.email}
               editLink={AppRoute.SHARED + '/' + projectId + '/' + sectionId + AppRoute.UPDATE_RECORD + '/' + record.record_id}
             />)
